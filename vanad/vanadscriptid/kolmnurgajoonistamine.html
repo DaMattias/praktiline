@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Joonistamine</title>
+</head>
+<body>
+    <canvas id="kolmnurk" width="500" height="500" style="border:2px solid #000000; float:left; clear:both;"></canvas>
+    <div>
+        <form style="padding-left:25px">
+            <input id="alfa" max="90" min="0" style="padding: 5px 5px 5px 5px; margin: 5px 5px 5px 25px" type="number" placeholder="ALFA"/>
+            <input id="alus" max ="400" min="1" style=" padding: 5px 5px 5px 5px; margin: 5px 5px 5px 5px" type="number" placeholder="ALUS"/>
+            <input id="x" max ="400" min="1" style=" padding: 5px 5px 5px 5px; margin: 5px 5px 5px 25px" type="number" placeholder="X"/>
+            <input id="y" max ="400" min="1" style=" padding: 5px 5px 5px 5px; margin: 5px 5px 5px 5px" type="number" placeholder="Y"/>
+
+        </form>
+        <button onclick="kolmnurk()" style=" margin-top:25px; margin-left:25px; padding:10px 10px 10px 10px;">KOLMNURK</button>
+    </div>
+    <script>
+            var c = document.getElementById('kolmnurk').getContext('2d');
+            var width = document.getElementById('kolmnurk').width;
+            var height = document.getElementById('kolmnurk').height;
+
+
+            function joonista(x, y, alfa, alus) {
+                c.clearRect(0, 0, width, height);
+                c.save();
+                c.translate(x,y);
+                c.fillStyle = "black";
+                c.beginPath();
+                c.moveTo(alus, 0);
+                c.lineTo(0, 0);
+                c.lineTo(0, 0 - Math.tan(parseFloat(alfa) * Math.PI / 180) * alus);
+                c.closePath();
+                c.fill();
+                c.restore();
+            }
+
+            function kolmnurk() {
+                var alfa = document.getElementById("alfa").value;
+                var alus = document.getElementById("alus").value;
+                var x = document.getElementById("x").value;
+                var y = document.getElementById("y").value;
+                joonista(x, y, alfa, alus);
+            }
+
+    </script>
+</body>
+</html>

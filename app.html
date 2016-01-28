@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kerge kaldpind</title>
+  <style>
+    canvas {
+      border: 2px solid rgb(200, 200, 200);
+      outline: 2px solid rgb(170, 170, 170);
+    }
+    body {
+      padding-top:10px;
+      text-align: center;
+    }
+  </style>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+  <canvas id="kastike" width="800" height="600"></canvas>
+  <table style="margin-left: 50px;">
+    <tr>
+      <th>x:</th>
+      <td id="value-x"></td>
+    </tr>
+    <tr>
+      <th>t:</th>
+      <td id="value-time"></td>
+    </tr>
+  </table>
+  <div>
+    <form>
+      <input type="text">
+    </form>
+    <button onclick="magic();" style="margin-top:20px;">ANIMEERI</button>
+  </div>
+  <script src="app.js" charset="utf-8"></script>
+</body>
+</html>

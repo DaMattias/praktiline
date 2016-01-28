@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Joonistame kaste</title>
+        <style>
+            canvas {
+                border:1px solid #666;
+            }
+
+            #kast {
+                float: left;
+            }
+
+            .sisendid{
+                padding: 5px 5px 5px 5px;
+                margin: 5px 5px 5px;
+                float: right;
+                clear: both;
+            }
+
+            #kastid {
+                float: right;
+            }
+
+            #kraad {
+                padding: 5px 5px 5px 5px;
+                margin: 5px 5px 5px;
+                float: right;
+                clear: both;
+            }
+
+            #nupp {
+                margin-top: 75px;
+                padding: 10px 10px 10px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="kast">
+            <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+        <div id="kastid">
+            <form id="test">
+                <!--
+                <input placeholder="X" type="number" class="sisendid" id="sisend1" max="450" min="0" step="1" value="15" onchange="updateX(this.value)">
+                <p style="float: left;">X:</p>
+                <input placeholder="Y" type="number" class="sisendid" id="sisend2" max="450" min="0" step="1" value="20" onchange="updateY(this.value)">
+                <p style="float: left;">Y:</p>
+                -->
+                <input placeholder="Kraadid" type="number" id="kraad" max="90" min="0" step="1" value="45" onchange="updateKraad(this.value)">
+                <p style="float: left;">ALFA:</p>
+            </form>
+            <button id="nupp" onclick="joonista()">JOONISTAMISEKS</button>
+        </div>
+        <script>
+            var c = document.getElementById('canvas').getContext('2d');
+
+            var width  = document.getElementById('canvas').width;
+            var height = document.getElementById('canvas').height;
+
+            /*
+            function updateX(asx){
+                document.getElementById("sisend1").value = asx;
+            }
+
+            function updateY(asy){
+                document.getElementById("sisend2").value = asy;
+            }
+            */
+
+            function updateKraad(asalfa){
+                document.getElementById("kraad").value = asalfa;
+            }
+
+            //joonistamise funktsioon
+            function joonista() {
+
+                //puhastab canvase alguses
+                c.clearRect(0, 0, width, height);
+
+                //html'i sisendist javascripti variable'ideks
+                /*
+                var x = document.getElementById("sisend1").value;
+                var y = document.getElementById("sisend2").value;
+                */
+                var alfa = document.getElementById("kraad").value;
+
+                //joonistamine toimub vastavalt kaldenurgale
+                if (alfa<45) {
+
+                    //joonistab kolmnurga
+                    c.save();
+                    c.translate(0,50);
+                    c.fillStyle="black";
+                    c.beginPath();
+                    c.moveTo(width,height);
+                    c.lineTo(0,height);
+                    c.lineTo(0,height-Math.tan(parseFloat(alfa)*Math.PI/180)*height);
+                    c.closePath();
+                    c.fill();
+                    c.restore();
+
+                    //joonistab keha koos telgedega
+                    c.save();
+                    c.translate(0, height-Math.tan(parseFloat(alfa)*Math.PI/180)*height+50);
+                    c.rotate((Math.PI / 180) * parseFloat(alfa));
+                    c.fillStyle = "red";
+                    c.fillRect(25, -50, 50, 50);
+                    c.strokeStyle="blue";
+                    c.beginPath();
+                    c.moveTo(50,75);
+                    c.lineTo(50,-125);
+                    c.moveTo(-50,-25);
+                    c.lineTo(150,-25);
+                    c.closePath();
+                    c.lineWidth="2";
+                    c.stroke();
+                    c.restore();
+
+                    /*
+                    //joonistab G
+                    c.save();
+                    c.beginPath();
+                    c.translate(0, height-Math.tan(parseFloat(alfa)*Math.PI/180)*height+50);
+                    c.moveTo(0);
+                    c.lineTo(0,125);
+                    c.closePath();
+                    c.lineWidth="5";
+                    c.strokeStyle="blue";
+                    c.stroke();
+                    c.restore();
+                    */
+                } else if (alfa>45) {
+
+                    //joonistab kolmnurga
+                    c.save();
+                    c.translate(0,50);
+                    c.fillStyle="black";
+                    c.beginPath();
+                    c.moveTo(0,0);
+                    c.lineTo(0,height);
+                    c.lineTo(Math.tan((90-parseFloat(alfa))*Math.PI/180)*width,height);
+                    c.closePath();
+                    c.fill();
+                    c.restore();
+
+                    //joonistab keha koos telgedega
+                    c.save();
+                    c.translate(0, 50);
+                    c.rotate((Math.PI / 180) * parseFloat(alfa));
+                    c.fillStyle = "red";
+                    c.fillRect(25, -50, 50, 50);
+                    c.strokeStyle="blue";
+                    c.beginPath();
+                    c.moveTo(50,75);
+                    c.lineTo(50,-125);
+                    c.moveTo(-50,-25);
+                    c.lineTo(150,-25);
+                    c.closePath();
+                    c.lineWidth="2";
+                    c.stroke();
+                    c.restore();
+
+                    /*
+                    //joonistab G
+                    c.save();
+                    c.beginPath();
+                    c.moveTo(parseFloat(x)+25,parseFloat(y)+25);
+                    c.lineTo(parseFloat(x)+25,parseFloat(y)+125);
+                    c.closePath();
+                    c.lineWidth="5";
+                    c.strokeStyle="blue";
+                    c.stroke();
+                    c.restore();
+                    */
+
+                } else {
+
+                    //joonistab kolmnurga
+                    c.save();
+                    c.translate(0,50);
+                    c.fillStyle="black";
+                    c.beginPath();
+                    c.moveTo(width,height);
+                    c.lineTo(0,height);
+                    c.lineTo(0,0);
+                    c.closePath();
+                    c.fill();
+                    c.restore();
+
+                    //joonistab keha koos telgedega
+                    c.save();
+                    c.translate(0, 50);
+                    c.rotate((Math.PI / 180) * parseFloat(alfa));
+                    c.fillStyle = "red";
+                    c.fillRect(25, -50, 50, 50);
+                    c.strokeStyle="blue";
+                    c.beginPath();
+                    c.moveTo(50,75);
+                    c.lineTo(50,-125);
+                    c.moveTo(-50,-25);
+                    c.lineTo(150,-25);
+                    c.closePath();
+                    c.lineWidth="2";
+                    c.stroke();
+                    c.restore();
+
+                    /*
+                    //joonistab G
+                    c.save();
+                    c.beginPath();
+                    c.moveTo(parseFloat(x)+25,parseFloat(y)+25);
+                    c.lineTo(parseFloat(x)+25,parseFloat(y)+125);
+                    c.closePath();
+                    c.lineWidth="5";
+                    c.strokeStyle="blue";
+                    c.stroke();
+                    c.restore();
+                    */
+
+                }
+                //testimine
+                console.log(width-Math.tan((parseFloat(alfa)-45)*Math.PI/180)*width)
+            }
+
+        </script>
+    </body>
+</html>
